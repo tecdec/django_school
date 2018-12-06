@@ -1,0 +1,53 @@
+in git bash
+create a keypair
+cd .ssh
+   18  dir
+   19  ls -lart
+   22  ssh-keygen -t rsa -b 4096 -C "declan_lambe@hotmail.com"
+ start teh ssh-agent if not already running
+   23  ps -ef | grep ssh
+   24  ps -ef
+   25  eval $(ssh-agent -s)
+   26  ps -ef
+create the keypair
+   27  ssh-add ~/.ssh/id_rsa_hotmail
+Copy to cliboard
+   28  clip < ~/.ssh/id_rsa_hotmail.pub
+https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+cd .\Envs\django_school\
+   2 dir
+   3 ls .\Scripts\
+   4 git init
+   5 cd .git
+   6 dir
+   7 cat .\description
+   8 cat .\HEAD
+   9 cat .\config
+  10 git config --global core.autocrlf true
+  11 cd ..
+  12 git config --global core.autocrlf true
+  13 cat .git\\config
+  14 git config --global core.autocrlf true
+  15 git config --global core.autocrlf false
+  16 cat .git\\config
+  17 git config --global core.autocrlf true
+  18 git commit
+  19 git add
+  20 git add .
+  21 git commit
+  22 git remote add origin git@github.com:tecdec/django_school
+  23 git push -u origin master
+  24 cd .\.git\
+  25 dir
+  26 edit .\config
+  27 notepad.exe config
+  28 cd info
+  29 dir
+  30 cd ..
+  31 cd ..
+  32 git config user.email declan_lambe@hotmail.com
+  33 git config user.name "tecdec"
+  34 git push -u origin master
+  35 git push -u origin master
+  36 git push -u origin master
