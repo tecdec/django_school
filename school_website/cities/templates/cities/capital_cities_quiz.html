@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Capital Cities Quiz</title>
+</head>
+<body>
+<h1>Capital Cities Quiz</h1>
+<table>
+  {% for item in object_list %}
+    {% cycle '<tr>' '' '' '' %}
+      <td>{{item.city}}</td>
+      <td>{{item.country}}</td>
+      <td>{{item.continent}}</td>
+    {% cycle '' '' '' '</tr>' %}
+  {% endfor %}
+</table>
+{% block content %}
+    <h2>Publishers</h2>
+    <ul>
+        {% for item in object_list %}
+            <li>{{ item.city }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+</body>
+</html>

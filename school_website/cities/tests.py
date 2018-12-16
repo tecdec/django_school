@@ -4,30 +4,38 @@ from pprint import pprint
 from django.test import TestCase
 import inspect
 import logging
-from .models import Exam, Category, Question, Answer, CitiesOfTheWorld, QuestionGenerator
+from .models import Exam, Category, Question, Answer, CitiesOfTheWorld
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def logPoint(context):
     '''utility function used for module functions and class methods'''
     callingFunction = inspect.stack()[1][3]
-    logging.debug('in %s - %s()' % (context,callingFunction))
+    logging.debug('in %s - %s()' % (context, callingFunction))
+
 
 def setUpModule():
     '''called once, before anything else in this module'''
     logPoint('module %s' % __name__)
-    CitiesOfTheWorld("Dublin", "Ireland", "Europe")
-    CitiesOfTheWorld("London", "England", "Europe")
-    CitiesOfTheWorld("Paris", "France", "Europe")
-    CitiesOfTheWorld("Berlin", "Germany", "Europe")
-    CitiesOfTheWorld("Stockholm", "Sweden", "Europe")
-    CitiesOfTheWorld("Helsinki", "Finland", "Europe")
-    CitiesOfTheWorld("Talin", "Finland", "Europe")
-    CitiesOfTheWorld("Belfast", "Northern Ireland", "Europe")
-    Category.objects.create_category("European Capital Cities")
-    Category.objects.create_category("Capital Cities")
-    Category.objects.create_category("test_delete")
+    city_list = [ ]
+    city_list.append(CitiesOfTheWorld.objects.create_city("Dublin", "Ireland", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("London", "England", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Paris", "France", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Berlin", "Germany", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Stockholm", "Sweden", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Helsinki", "Finland", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Talin", "Estonia", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Belfast", "Northern Ireland", "Europe"))
+    for city in city_list:
+        city.save()
+    category_list = [ ]
+    category_list.append(Category.objects.create_category("European Capital Cities"))
+    category_list.append(Category.objects.create_category("Capital Cities"))
+    category_list.append(Category.objects.create_category("test_delete"))
+    for category in category_list:
+        category.save()
     logging.debug("in " + str(inspect.stack()[0][3]) + " category = " + str(Category.objects.get(pk=1)))
 
 
@@ -61,7 +69,6 @@ class CategoryModelTests(TestCase):
         callingFunction = inspect.stack()[1][3]
         currentTest = self.id().split('.')[-1]
         logging.debug('in %s - %s()' % (currentTest, callingFunction))
-
 
 
 class ExamModelTests(TestCase):
@@ -171,7 +178,8 @@ class QuestionModelTests(TestCase):
         self.assertNotEqual(question.answer_given, question.correct_answer)
         self.assertFalse(question.is_correct(question.correct_answer, question.answer_given),
                          msg="def is_correct is incorrect!")
-        logging.debug("in " + str(inspect.stack()[0][3]) + 'just executed : -self.questions[0].submit_answer("Dublin")' + "\n ##################")
+        logging.debug("in " + str(inspect.stack()[0][
+                                      3]) + 'just executed : -self.questions[0].submit_answer("Dublin")' + "\n ##################")
 
         self.logPoint()
 
@@ -184,26 +192,33 @@ class QuestionModelTests(TestCase):
             logging.debug("question : " + str(question))
 
     def logPoint(self):
-        'utility method to trace control flow'
+        """utility method to trace control flow"""
         callingFunction = inspect.stack()[1][3]
         currentTest = self.id().split('.')[-1]
         logging.debug('in %s - %s()' % (currentTest, callingFunction))
 
-
-class QuestionGeneratorTests(TestCase):
-    def setUp(self):
-        self.logPoint()
-        country_list = CitiesOfTheWorld.country.choices
-        for country in country_list:
-            print("country = : " + country)
-        question_choices_list = CitiesOfTheWorld.city.column
-        QuestionGenerator("European Capital Cities", "What is the capital of ", country_list,
-                          question_choices_list, num_questions_to_select=5, num_choices_to_select=6)
-
-    def test_ci(self):
-        self.logPoint()
-    def logPoint(self):
-        'utility method to trace control flow'
-        callingFunction = inspect.stack()[1][3]
-        currentTest = self.id().split('.')[-1]
-        logging.debug('in %s - %s()' % (currentTest, callingFunction))
+# class QuestionGeneratorTests(TestCase):
+#     def setUp(self):
+#         self.logPoint()
+#         logging.debug("in " + str(inspect.stack()[0][3]) + " ???? = " + str(CitiesOfTheWorld.objects.all()))
+#
+#         city_list = list(CitiesOfTheWorld.objects.all())
+#         country_list = list(CitiesOfTheWorld.objects.values('country'))
+#         for city in city_list:
+#             print("city = : " + str(city) + " " + str(city.country) + " " + str(city.continent))
+#         city_choices_list = city_list
+#         CapitalCityQuestionGenerator("European Capital Cities",
+#                                      "What is the capital of ",
+#                                      country_list,
+#                                      city_choices_list,
+#                                      num_questions_to_select=5,
+#                                      num_choices_to_select=6)
+#
+#     def test_(self):
+#         self.logPoint()
+#
+#     def logPoint(self):
+#         '''utility method to trace control flow'''
+#         callingFunction = inspect.stack()[1][3]
+#         currentTest = self.id().split('.')[-1]
+#         logging.debug('in %s - %s()' % (currentTest, callingFunction))

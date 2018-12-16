@@ -46,3 +46,7 @@ cd .\Envs\django_school\
   33 git config user.name "tecdec"
   36 git push -u origin master
   
+  how to branche
+  
+  how to merge
+  
