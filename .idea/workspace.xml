@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="592fa03e-9f6e-4132-93d8-58594fce98b2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/school_website/cities/templates/cities/capital_cities_quiz.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/how to setup github repository.txt" beforeDir="false" afterPath="$PROJECT_DIR$/how to setup github repository.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_website/cities/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_website/cities/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_website/cities/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_website/cities/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_website/cities/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_website/cities/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_website/cities/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_website/cities/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="592fa03e-9f6e-4132-93d8-58594fce98b2" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +12,7 @@
     <session id="-72132531">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="1" />
@@ -74,7 +66,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/school_website/cities/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
@@ -98,14 +90,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/school_website/cities/tests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
               <caret line="24" column="87" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="87" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <marker date="1544999125463" expanded="true" signature="9729:9764" ph="..." />
+                <marker date="1545003861470" expanded="true" signature="9729:9764" ph="..." />
               </folding>
             </state>
           </provider>
@@ -132,11 +124,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/school_website/cities/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1851">
+            <state relative-caret-position="-1837">
               <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
               <folding>
                 <element signature="e#192#205#0" expanded="true" />
-                <marker date="1544922463685" expanded="true" signature="3405:3414" ph="..." />
+                <marker date="1545003861470" expanded="true" signature="3405:3414" ph="..." />
               </folding>
             </state>
           </provider>
@@ -383,7 +375,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.69960475" visible="true" weight="0.24324325" />
       <window_info id="Structure" order="1" sideWeight="0.30039525" side_tool="true" visible="true" weight="0.24324325" />
@@ -577,17 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/school_website/cities/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1851">
-          <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
-          <folding>
-            <element signature="e#192#205#0" expanded="true" />
-            <marker date="1544922463685" expanded="true" signature="3405:3414" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/school_website/cities/templates/cities/capital_cities_quiz.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -599,17 +579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/school_website/cities/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="87" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="87" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <marker date="1544999125463" expanded="true" signature="9729:9764" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -629,6 +598,28 @@
           <caret line="30" selection-start-line="30" selection-end-line="33" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school_website/cities/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1837">
+          <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
+          <folding>
+            <element signature="e#192#205#0" expanded="true" />
+            <marker date="1545003861470" expanded="true" signature="3405:3414" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/school_website/cities/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="87" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="87" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <marker date="1545003861470" expanded="true" signature="9729:9764" ph="..." />
           </folding>
         </state>
       </provider>
