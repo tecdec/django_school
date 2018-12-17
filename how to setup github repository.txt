@@ -37,17 +37,16 @@ cd .\Envs\django_school\
   20 git add .
   21 git commit
   22 git remote add origin git@github.com:tecdec/django_school
-  23 git push -u origin master
+
+  23 git push -u origin master # needed blank repo to do this the first time. got Fatal Error with readme committed to the repo.
   24 cd .\.git\
   25 dir
-  26 edit .\config
-  27 notepad.exe config
-  28 cd info
-  29 dir
-  30 cd ..
-  31 cd ..
+  26 update  .git\config with local user details
   32 git config user.email declan_lambe@hotmail.com
   33 git config user.name "tecdec"
-  34 git push -u origin master
-  35 git push -u origin master
   36 git push -u origin master
+  
+  how to branche
+  
+  how to merge
+  

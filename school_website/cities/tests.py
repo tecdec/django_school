@@ -4,46 +4,76 @@ from pprint import pprint
 from django.test import TestCase
 import inspect
 import logging
-from .models import Exam, Category, Question, Answer,CitiesOfTheWorld, QuestionGenerator
+from .models import Exam, Category, Question, Answer, CitiesOfTheWorld
 
-class CitiesOfTheWorldTests(TestCase):
-    def setUp(self):
-        CitiesOfTheWorldTests("Dublin","Ireland","Europe")
-        CitiesOfTheWorldTests("London","England","Europe")
-        CitiesOfTheWorldTests("Paris","France","Europe")
-        CitiesOfTheWorldTests("Berlin","Germany","Europe")
-        CitiesOfTheWorldTests("Stockholm","Sweden","Europe")
-        CitiesOfTheWorldTests("Helsinki","Finland","Europe")
-        CitiesOfTheWorldTests("Talin","Finland","Europe")
-        CitiesOfTheWorldTests("Belfast","Northern Ireland","Europe")
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
+
+def logPoint(context):
+    '''utility function used for module functions and class methods'''
+    callingFunction = inspect.stack()[1][3]
+    logging.debug('in %s - %s()' % (context, callingFunction))
+
+
+def setUpModule():
+    '''called once, before anything else in this module'''
+    logPoint('module %s' % __name__)
+    city_list = [ ]
+    city_list.append(CitiesOfTheWorld.objects.create_city("Dublin", "Ireland", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("London", "England", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Paris", "France", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Berlin", "Germany", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Stockholm", "Sweden", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Helsinki", "Finland", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Talin", "Estonia", "Europe"))
+    city_list.append(CitiesOfTheWorld.objects.create_city("Belfast", "Northern Ireland", "Europe"))
+    for city in city_list:
+        city.save()
+    category_list = [ ]
+    category_list.append(Category.objects.create_category("European Capital Cities"))
+    category_list.append(Category.objects.create_category("Capital Cities"))
+    category_list.append(Category.objects.create_category("test_delete"))
+    for category in category_list:
+        category.save()
+    logging.debug("in " + str(inspect.stack()[0][3]) + " category = " + str(Category.objects.get(pk=1)))
+
+
+def tearDownModule():
+    'called once, after everything else in this module'
+    logPoint('module %s' % __name__)
 
 
 class CategoryModelTests(TestCase):
     categories = None
 
     def setUp(self):
-        Category.objects.create_category("European Capital Cities")
-        Category.objects.create_category("Capital Cities")
-        Category.objects.create_category("test_delete")
+        self.logPoint()
         self.categories = Category.objects.all()
 
     def test_creation_of_new_category(self):
+        self.logPoint()
         # Category.objects.create_category("European Capital Cities")
         # Category.objects.create_category("Capital Cities")
-        # categories = Category.objects.all()
-        self.assertEqual("European Capital Cities", str(self.categories[0]))
+        self.assertEqual("European Capital Cities", str(self.categories.get(category__exact="European Capital Cities")))
         self.assertEqual("Capital Cities", str(self.categories[1]))
 
     def test_delete_of_category(self):
+        self.logPoint()
         # print(str(self.categories.filter(category="test_delete")) + "rrrrrrrrr")
         # print("ooo:" + str(self.categories.filter(name="test_delete")))
-        print(str(inspect.stack()[0][3]) + str(self.categories.get(category__exact="test_delete")))
+        # print(str(inspect.stack()[0][3]) + " " + str(self.categories.get(category__exact="test_delete")))
+
+    def logPoint(self):
+        'utility method to trace control flow'
+        callingFunction = inspect.stack()[1][3]
+        currentTest = self.id().split('.')[-1]
+        logging.debug('in %s - %s()' % (currentTest, callingFunction))
 
 
 class ExamModelTests(TestCase):
     def setUp(self):
-        CategoryModelTests.setUp(self)
+        self.logPoint()
         Exam.objects.create_exam(name="European Capital Cities", allowed_time_mins=20)
         Exam.objects.create_exam(name="footy Cities", allowed_time_mins=440)
         Exam.objects.create_exam(name="swimming Cities")
@@ -58,45 +88,47 @@ class ExamModelTests(TestCase):
         """
         determine if exam can be created by user
         """
-        print("def " + str(inspect.stack()[0][3]))
+        self.logPoint()
         exam = Exam.objects.all()[0]
         self.assertEqual("European Capital Cities", str(exam.name))
-        # exam.category=cities
-        # cities = Category.objects.create_category("European Capital Cities")
-        print(Category.objects.all())
-        print(str(Exam.objects.all()))
-        print(exam)
-        print("_-_-_-_-_-")
-        assert (True)
+        logging.debug("in " + str(inspect.stack()[0][3]) + " categories = " + str(Category.objects.all()))
+        logging.debug("in " + str(inspect.stack()[0][3]) + " exams = " + str(Exam.objects.all()))
+        logging.debug("in " + str(inspect.stack()[0][3]) + " exam = " + str(exam))
 
     def test_add_tests_to_exam(self):
-        assert (True)
+        self.logPoint()
+
+    def logPoint(self):
+        '''utility method to trace control flow'''
+        callingFunction = inspect.stack()[1][3]
+        currentTest = self.id().split('.')[-1]
+        logging.debug('in %s - %s()' % (currentTest, callingFunction))
 
 
 class QuestionModelTests(TestCase):
     # answers = None
+    categories = []
 
     def setUp(self):
+        self.logPoint()
         self.assertNotEquals(3.14, pi)
-        print("def " + str(inspect.stack()[0][3]))
-        # CategoryModelTests.setUp(self)
-        Category.objects.create_category("European Capital Cities")
-        Category.objects.create_category("Capital Cities")
-        Category.objects.create_category("test_delete")
-        # self.questions = set()
-        # self.answers = set()
-        self.categories = Category.objects.all()
-        q1 = Question(question_text="What is the capital of Ireland", correct_answer="Dublin",
-                      category=self.categories[0])
+        categories = Category.objects.all()
+        if logger.isEnabledFor(logging.DEBUG):
+            logging.debug("in " + str(inspect.stack()[0][3]) + " categories = " + str(Category.objects.all()))
+            for category in categories:
+                print("     category = " + str(category))
+        q1 = Question.objects.create_question(question_text="What is the capital of Ireland", correct_answer="Dublin",
+                                              category=categories[0])
         q2 = Question(question_text="What is the capital of Northern Ireland", correct_answer="Belfast",
-                      category=self.categories[0])
+                      category=categories[0])
         q3 = Question(question_text="What is the capital of Iceland", correct_answer="Reykjavik",
-                      category=self.categories[0])
+                      category=categories[0])
         q4 = Question(question_text="What is the capital of Estonia", correct_answer="Talin",
-                      category=self.categories[0])
+                      category=categories[0])
         a1 = Answer(answer="Dublin")
         a2 = Answer(answer="Belfast")
-        # pprint(vars(q1))
+        if logger.isEnabledFor(logging.DEBUG):
+            pprint(vars(q1))
         q1.save()
         q2.save()
         q3.save()
@@ -106,16 +138,21 @@ class QuestionModelTests(TestCase):
         self.answers = Answer.objects.all()
         self.assertEqual(Question.objects.count(), 3, msg="found wrong number of questions")
         self.assertEqual(self.answers.count(), 2, msg="found wrong number of answers")
+        self.logPoint()
 
     def test_show_questions(self):
-        print("def " + str(inspect.stack()[0][3]))
-        for question in self.questions:
-            print("question : " + str(question))
+        self.logPoint()
+        # print("def " + str(inspect.stack()[0][3]))
+        if logger.isEnabledFor(logging.DEBUG):
+            for question in self.questions:
+                print("in " + str(inspect.stack()[0][3]) + ": question : " + str(question))
 
     def test_show_answers(self):
-        print("def " + str(inspect.stack()[0][3]))
-        for choice in self.answers:
-            print("print choice : " + str(choice))
+        self.logPoint()
+        # print("def " + str(inspect.stack()[0][3]))
+        if logger.isEnabledFor(logging.DEBUG):
+            for choice in self.answers:
+                print("in " + str(inspect.stack()[0][3]) + ": print answer given : " + str(choice))
 
     def test_answering_questions(self):
         """in def test_answering_questions
@@ -125,8 +162,8 @@ class QuestionModelTests(TestCase):
             assert that answer_given =  correct_answer
             assert that answer_given !=  correct_answer
         """
-
-        print("def " + str(inspect.stack()[0][3]))
+        self.logPoint()
+        # print("def " + str(inspect.stack()[0][3]))
         self.assertEqual(self.answers.count(), 2, msg="found wrong number of answers")
 
         for question in self.questions:
@@ -141,21 +178,47 @@ class QuestionModelTests(TestCase):
         self.assertNotEqual(question.answer_given, question.correct_answer)
         self.assertFalse(question.is_correct(question.correct_answer, question.answer_given),
                          msg="def is_correct is incorrect!")
-        # print('just executed : -self.questions[0].submit_answer("Dublin")' + "\n ##################")
+        logging.debug("in " + str(inspect.stack()[0][
+                                      3]) + 'just executed : -self.questions[0].submit_answer("Dublin")' + "\n ##################")
 
+        self.logPoint()
 
     def print_objects_attributes(self):
+        self.logPoint()
         for question in self.questions:
-            print('now about to execute : -self.questions[0].submit_answer("YYYYYYYY")' + "\n ##################")
             pprint(vars(Question.objects.all()))
             pprint(vars(Question.objects.all().get(pk=int(question.id))))
         for question in self.questions:
-            print("question : " + str(question))
+            logging.debug("question : " + str(question))
 
-class QuestionGeneratorTests(TestCase,CitiesOfTheWorldTests):
-    def setUp(self):
-        country_list=CitiesOfTheWorldTests.country.column
-        question_choices_list=CitiesOfTheWorldTests.city.column
-        QuestionGenerator("European Capital Cities","What is the capital of ", country_list,
-                        question_choices_list,num_questions_to_select=5, num_choices_to_select=6)
+    def logPoint(self):
+        """utility method to trace control flow"""
+        callingFunction = inspect.stack()[1][3]
+        currentTest = self.id().split('.')[-1]
+        logging.debug('in %s - %s()' % (currentTest, callingFunction))
 
+# class QuestionGeneratorTests(TestCase):
+#     def setUp(self):
+#         self.logPoint()
+#         logging.debug("in " + str(inspect.stack()[0][3]) + " ???? = " + str(CitiesOfTheWorld.objects.all()))
+#
+#         city_list = list(CitiesOfTheWorld.objects.all())
+#         country_list = list(CitiesOfTheWorld.objects.values('country'))
+#         for city in city_list:
+#             print("city = : " + str(city) + " " + str(city.country) + " " + str(city.continent))
+#         city_choices_list = city_list
+#         CapitalCityQuestionGenerator("European Capital Cities",
+#                                      "What is the capital of ",
+#                                      country_list,
+#                                      city_choices_list,
+#                                      num_questions_to_select=5,
+#                                      num_choices_to_select=6)
+#
+#     def test_(self):
+#         self.logPoint()
+#
+#     def logPoint(self):
+#         '''utility method to trace control flow'''
+#         callingFunction = inspect.stack()[1][3]
+#         currentTest = self.id().split('.')[-1]
+#         logging.debug('in %s - %s()' % (currentTest, callingFunction))
